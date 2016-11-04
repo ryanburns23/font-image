@@ -1,8 +1,15 @@
 <link rel="import" href="../polymer/polymer.html">
+<script src="bower_components/webfontloader/webfontloader.js"></script>
 
 <!--
 `font-image`
 Font to image
+
+### Styling
+
+`<font-image>` provides the following custom properties and mixins for styling:
+Coming Soon
+
 
 @demo demo/index.html
 -->
@@ -13,36 +20,105 @@ Font to image
       :host {
         display: block;
       }
-      canvas{
+      canvas, img.true{
         display: none;
-        font-family: var(--signature-font);
       }
     </style>
-    <canvas id="canvas">[[text]]</canvas>
-    [[img]]
+    <canvas id="canvas"></canvas>
+    <img class$="[[hideImage]]" src="[[dataUrl]]">
   </template>
 
   <script>
     Polymer({
       is: 'font-image',
       properties: {
+        /**
+         * String to be converted to an image
+         *
+         * @type String
+         */
         text: {
           type: String,
-          value: 'font-image',
-          observer: 'generateImage'
+          value: 'font image',
+          observer: '_generateImage'
         },
+        /**
+         * File extention for dataURL
+         *
+         * @type String
+         */
         extension: {
           type: String,
-          value: 'png',
+          value: 'jpeg',
         },
+        /**
+         * Encoded DataUrl
+         *
+         * @type String
+         */
         dataUrl: {
           type: String,
+          notify: true,
+        },
+        /**
+         * Font family for text, will auto import google webfonts - https://fonts.google.com
+         *
+         * @type String
+         */
+        font: {
+          type: String,
+          value: 'Homemade Apple',
+        },
+        /**
+         * Hides the image
+         *
+         * @attribute hideImage
+         * @type boolean
+         * @default false
+         */
+        hideImage: {
+          type: Boolean,
+          value: false,
         },
       },
 
-      generateImage: function(){
-        this.img = this.$.canvas.toDataURL("image/"+this.extension);
-      }
+      ready: function() {
+        this._loadfont();
+      //  this._generateImage();
+      },
+
+      _generateImage: function(){
+        if(this.font != null){
+          var canvas = this.$.canvas;
+          var ctx = this.$.canvas.getContext("2d");
+
+          //CLEAR CANVAS
+          ctx.fillStyle = "white";
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          //ADD TEXT
+          ctx.font = "30px "+ this.font;
+          ctx.fillStyle = "blue";
+          ctx.fillText(this.text, 10, 40);
+
+          //GENERATE URL
+          this.dataUrl = this.$.canvas.toDataURL("image/"+this.extension);
+        }
+      },
+
+      _loadfont: function(){
+        var _this = this;
+        WebFont.load({
+          google: {
+            families: [this.font]
+          },
+          fontactive: function() {
+            _this._generateImage();
+          },
+        });
+      },
+
     });
   </script>
 </dom-module>
