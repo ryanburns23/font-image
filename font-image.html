@@ -1,0 +1,48 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`font-image`
+Font to image
+
+@demo demo/index.html
+-->
+
+<dom-module id="font-image">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      canvas{
+        display: none;
+        font-family: var(--signature-font);
+      }
+    </style>
+    <canvas id="canvas">[[text]]</canvas>
+    [[img]]
+  </template>
+
+  <script>
+    Polymer({
+      is: 'font-image',
+      properties: {
+        text: {
+          type: String,
+          value: 'font-image',
+          observer: 'generateImage'
+        },
+        extension: {
+          type: String,
+          value: 'png',
+        },
+        dataUrl: {
+          type: String,
+        },
+      },
+
+      generateImage: function(){
+        this.img = this.$.canvas.toDataURL("image/"+this.extension);
+      }
+    });
+  </script>
+</dom-module>
