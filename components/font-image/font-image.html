@@ -1,0 +1,178 @@
+<link rel="import" href="../polymer/polymer.html">
+<script src="../webfontloader/webfontloader.js"></script>
+
+<!--
+`font-image`
+Font to image
+
+### Styling
+
+`<font-image>` provides the following custom properties and mixins for styling:
+Coming Soon
+
+
+@demo demo/index.html
+-->
+
+<dom-module id="font-image">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      canvas, img.true{
+        display: none;
+      }
+    </style>
+    <canvas width="[[width]]" height="[[height]]" id="canvas"></canvas>
+    <img class$="[[hideImage]]" src="[[dataUrl]]">
+  </template>
+
+  <script>
+    Polymer({
+      is: 'font-image',
+      properties: {
+        /**
+         * String to be converted to an image
+         *
+         * @type String
+         */
+        text: {
+          type: String,
+          value: 'font image',
+          observer: '_generateImage'
+        },
+        /**
+         * Image extention for dataURL
+         *
+         * @type String
+         */
+        extension: {
+          type: String,
+          value: 'jpeg',
+        },
+        /**
+         * Encoded DataUrl
+         *
+         * @type String
+         */
+        dataUrl: {
+          type: String,
+          notify: true,
+        },
+        /**
+         * Font for text, will auto import google webfonts - https://fonts.google.com
+         *
+         * @type String
+         */
+        font: {
+          type: String,
+          value: 'Homemade Apple',
+        },
+        /**
+         * Hides the image
+         *
+         * @attribute hideImage
+         * @type boolean
+         * @default false
+         */
+        hideImage: {
+          type: Boolean,
+          value: false,
+        },
+        /**
+         * Height of image
+         *
+         */
+        height: {
+          type: String,
+          value: '70',
+        },
+        /**
+         * Width of image
+         *
+         */
+        width: {
+          type: String,
+          value: '300',
+        },
+        /**
+         * Size of font
+         *
+         */
+        fontSize: {
+          type: Number,
+          value: '23',
+        },
+        /**
+         * Color of text
+         *
+         */
+        color: {
+          type: String,
+          value: 'blue',
+        },
+        /**
+         * Color of background
+         *
+         */
+        backgroundColor: {
+          type: String,
+          value: 'white',
+        },
+        /**
+         * Text X position
+         *
+         */
+        x: {
+          type: Number,
+          value: 10,
+        },
+        /**
+         * Text Y position
+         *
+         */
+        y: {
+          type: Number,
+          value: 40,
+        },
+      },
+
+      ready: function() {
+        this.canvas = this.$.canvas;
+        this.ctx = this.$.canvas.getContext("2d");
+        this._loadfont();
+      },
+
+      _generateImage: function(){
+        if(this.font != null){
+          //CLEAR CANVAS
+          this.ctx.fillStyle = this.backgroundColor;
+          this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+          this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+          //ADD TEXT
+          this.ctx.font = this.fontSize+"px "+ this.font;
+          this.ctx.fillStyle = this.color;
+          this.ctx.fillText(this.text, this.x, this.y);
+
+          //GENERATE URL
+          this.dataUrl = this.canvas.toDataURL("image/"+this.extension);
+        }
+      },
+
+      _loadfont: function(){
+        var _this = this;
+        WebFont.load({
+          google: {
+            families: [this.font]
+          },
+          fontactive: function() {
+            _this._generateImage();
+          },
+        });
+      },
+
+    });
+  </script>
+</dom-module>

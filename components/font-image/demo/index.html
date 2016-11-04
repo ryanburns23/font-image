@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>font-image demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../font-image.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+
+    <div class="vertical-section-container centered">
+      <h3>Basic demo</h3>
+      <demo-snippet>
+        <template>
+          <font-image></font-image>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container centered">
+      <h3>Change the font & text</h3>
+      <demo-snippet>
+        <template>
+          <font-image text="Hello World" font="Pacifico"></font-image>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container centered">
+      <h3>Change the height, width, font size, & color</h3>
+      <demo-snippet>
+        <template>
+          <font-image x="20" y="110" background-color="pink" color="purple" font-size="100" height="150" width="220" text="YO!" font="Delius Unicase"></font-image>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container centered">
+      <h3>Change the height, width, font size, & color</h3>
+      <demo-snippet>
+        <template>
+          <font-image font="Ruge Boogie" color="red" text="Hello World"></font-image>
+          <font-image font="Lakki Reddy" color="green" text="Hello World"></font-image>
+          <font-image font="Bilbo" color="purple" text="Hello World"></font-image>
+          <font-image font="Vibur" color="yellow" text="Hello World"></font-image>
+        </template>
+      </demo-snippet>
+    </div>
+
+
+
+  </body>
+</html>
