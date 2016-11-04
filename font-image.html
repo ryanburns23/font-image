@@ -24,7 +24,7 @@ Coming Soon
         display: none;
       }
     </style>
-    <canvas id="canvas"></canvas>
+    <canvas width="[[width]]" height="[[height]]" id="canvas"></canvas>
     <img class$="[[hideImage]]" src="[[dataUrl]]">
   </template>
 
@@ -80,30 +80,84 @@ Coming Soon
           type: Boolean,
           value: false,
         },
+        /**
+         * Height of image
+         *
+         */
+        height: {
+          type: String,
+          value: '70',
+        },
+        /**
+         * Width of image
+         *
+         */
+        width: {
+          type: String,
+          value: '300',
+        },
+        /**
+         * Size of font
+         *
+         */
+        fontSize: {
+          type: Number,
+          value: '23',
+        },
+        /**
+         * Color of text
+         *
+         */
+        color: {
+          type: String,
+          value: 'blue',
+        },
+        /**
+         * Color of background
+         *
+         */
+        backgroundColor: {
+          type: String,
+          value: 'white',
+        },
+        /**
+         * Text X position
+         *
+         */
+        x: {
+          type: Number,
+          value: 10,
+        },
+        /**
+         * Text Y position
+         *
+         */
+        y: {
+          type: Number,
+          value: 40,
+        },
       },
 
       ready: function() {
+        this.canvas = this.$.canvas;
+        this.ctx = this.$.canvas.getContext("2d");
         this._loadfont();
-      //  this._generateImage();
       },
 
       _generateImage: function(){
         if(this.font != null){
-          var canvas = this.$.canvas;
-          var ctx = this.$.canvas.getContext("2d");
-
           //CLEAR CANVAS
-          ctx.fillStyle = "white";
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          this.ctx.fillStyle = this.backgroundColor;
+          this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+          this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
           //ADD TEXT
-          ctx.font = "30px "+ this.font;
-          ctx.fillStyle = "blue";
-          ctx.fillText(this.text, 10, 40);
+          this.ctx.font = this.fontSize+"px "+ this.font;
+          this.ctx.fillStyle = this.color;
+          this.ctx.fillText(this.text, this.x, this.y);
 
           //GENERATE URL
-          this.dataUrl = this.$.canvas.toDataURL("image/"+this.extension);
+          this.dataUrl = this.canvas.toDataURL("image/"+this.extension);
         }
       },
 
