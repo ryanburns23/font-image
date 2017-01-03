@@ -20,12 +20,18 @@ Coming Soon
       :host {
         display: block;
       }
-      canvas, img.true{
+      canvas{
         display: none;
+      }
+      #showfont{
+        color: blue;
+        font-size: 22px;
       }
     </style>
     <canvas width="[[width]]" height="[[height]]" id="canvas"></canvas>
-    <img class$="[[hideImage]]" src="[[dataUrl]]">
+    <img hidden$="[[hideImage]]" src="[[dataUrl]]">
+    <div id="showfont">[[text]]</div>
+
   </template>
 
   <script>
@@ -39,7 +45,6 @@ Coming Soon
          */
         text: {
           type: String,
-          value: 'font image',
           observer: '_generateImage'
         },
         /**
@@ -165,10 +170,11 @@ Coming Soon
         var _this = this;
         WebFont.load({
           google: {
-            families: [this.font]
+            families: [_this.font]
           },
           fontactive: function() {
             _this._generateImage();
+            _this.$.showfont.style["font-family"] = _this.font;
           },
         });
       },
