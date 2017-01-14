@@ -27,10 +27,14 @@ Coming Soon
         color: blue;
         font-size: 22px;
       }
+      [hidden]{
+        display: none;
+      }
     </style>
+
     <canvas width="[[width]]" height="[[height]]" id="canvas"></canvas>
-    <img hidden$="[[hideImage]]" src="[[dataUrl]]">
-    <div id="showfont">[[text]]</div>
+    <img hidden$="[[!showImage]]" src="[[dataUrl]]">
+    <div hidden$="[[hideFont]]" id="showfont">[[text]]</div>
 
   </template>
 
@@ -75,13 +79,18 @@ Coming Soon
           value: 'Homemade Apple',
         },
         /**
-         * Hides the image
+         * Shows the image
          *
-         * @attribute hideImage
-         * @type boolean
-         * @default false
          */
-        hideImage: {
+        showImage: {
+          type: Boolean,
+          value: false,
+        },
+        /**
+         * hides the font
+         *
+         */
+        hideFont: {
           type: Boolean,
           value: false,
         },
@@ -143,7 +152,7 @@ Coming Soon
         },
       },
 
-      ready: function() {
+      attached: function() {
         this.canvas = this.$.canvas;
         this.ctx = this.$.canvas.getContext("2d");
         this._loadfont();
@@ -151,6 +160,11 @@ Coming Soon
 
       _generateImage: function(){
         if(this.font != null){
+          if (!this.canvas || !this.ctx) {
+            this.canvas = this.$.canvas;
+            this.ctx = this.$.canvas.getContext("2d");
+          }
+
           //CLEAR CANVAS
           this.ctx.fillStyle = this.backgroundColor;
           this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -163,6 +177,29 @@ Coming Soon
 
           //GENERATE URL
           this.dataUrl = this.canvas.toDataURL("image/"+this.extension);
+        }
+      },
+
+      //Returns a data URL
+      generateImageFromText: function(text){
+        if(this.font != null){
+          if (!this.canvas || !this.ctx) {
+            this.canvas = this.$.canvas;
+            this.ctx = this.$.canvas.getContext("2d");
+          }
+
+          //CLEAR CANVAS
+          this.ctx.fillStyle = this.backgroundColor;
+          this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+          this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+          //ADD TEXT
+          this.ctx.font = this.fontSize+"px "+ this.font;
+          this.ctx.fillStyle = this.color;
+          this.ctx.fillText(text, this.x, this.y);
+
+          //GENERATE URL
+          return this.canvas.toDataURL("image/"+this.extension);
         }
       },
 
