@@ -1,3 +1,3 @@
 # \<font-image\>
 
-See the [component page](https://ryanburns23.github.io/font-image/) for more information.
+[Doc's](http://ryanburns.io/#/elements/font-image/docs) | [Demo](http://ryanburns.io/#/elements/font-image/demo)
