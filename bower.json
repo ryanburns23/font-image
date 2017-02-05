@@ -5,7 +5,7 @@
   "main": "font-image.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
-    "webfontloader": "https://github.com/typekit/webfontloader.git#^1.6.26"
+    "webfontloader": "typekit/webfontloader#^1.6.27"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
