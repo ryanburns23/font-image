@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+    <link rel="stylesheet" href="imports/style.css">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../font-image/font-image.html">
+
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="vertical-section-container centered">
+        <h3>Basic Demo</h3>
+        <demo-snippet>
+          <template>
+            <font-image text="Hello World" font="Pacifico"></font-image>
+          </template>
+        </demo-snippet>
+      </div>
+
+      <div class="vertical-section-container centered">
+        <h3>Change the height, width, font size, & color</h3>
+        <demo-snippet>
+          <template>
+            <font-image x="20" y="110" background-color="pink" color="purple" font-size="100" height="150" width="220" text="YO!" font="Delius Unicase" show-image hide-font></font-image>
+          </template>
+        </demo-snippet>
+      </div>
+
+      <div class="vertical-section-container centered">
+        <h3>Change the height, width, font size, & color</h3>
+        <demo-snippet>
+          <template>
+            <font-image font="Ruge Boogie" color="red" text="Hello World" show-image hide-font></font-image>
+            <font-image font="Lakki Reddy" color="green" text="Hello World" show-image hide-font></font-image>
+            <font-image font="Bilbo" color="purple" text="Hello World" show-image hide-font></font-image>
+            <font-image font="Vibur" color="yellow" text="Hello World" show-image hide-font></font-image>
+          </template>
+        </demo-snippet>
+      </div>
+    </div>
+
+  </body>
+</html>
